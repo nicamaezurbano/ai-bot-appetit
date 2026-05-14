@@ -1,0 +1,79 @@
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #fdf6e3;
+  color: #5c4033;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1 { text-align: center; color: #d35400; margin-top: 0; }
+p { text-align: center; margin-bottom: 20px; }
+
+form { display: flex; flex-direction: column; gap: 15px; }
+
+textarea {
+  width: 100%;
+  height: 100px;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  padding: 10px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.file-input { margin-bottom: 10px; }
+
+button {
+  background: #d35400;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+button:hover:not(:disabled) { background: #e67e22; }
+button:disabled { background: #bdc3c7; cursor: not-allowed; }
+
+.error-message { color: #c0392b; font-weight: bold; margin-top: 20px; text-align: center; }
+
+.recipe-output {
+  margin-top: 30px;
+  line-height: 1.6;
+  border-top: 2px solid #fdf6e3;
+  padding-top: 20px;
+}
+
+/* Mobile-Specific Tweaks */
+@media (max-width: 480px) {
+  body {
+    padding: 10px; /* Less wasted space on the edges */
+  }
+
+  .container {
+    padding: 20px; /* Tighter padding inside the card */
+    border-radius: 10px; /* Slightly sharper corners for a modern mobile look */
+  }
+
+  h1 {
+    font-size: 1.5rem; /* Shrink the title so it doesn't wrap awkwardly */
+  }
+
+  button {
+    padding: 18px; /* Make the button a bigger "tap target" for thumbs */
+    font-size: 18px;
+  }
+}
