@@ -1,3 +1,14 @@
+@import "tailwindcss";
+
+/* A tiny bit of custom styling for the Markdown output since Tailwind strips default HTML styles */
+.recipe-output h2 { @apply text-2xl font-bold text-orange-700 mt-6 mb-3; }
+.recipe-output h3 { @apply text-xl font-semibold text-orange-600 mt-4 mb-2; }
+.recipe-output ul { @apply list-disc list-inside mb-4 space-y-1; }
+.recipe-output ol { @apply list-decimal list-inside mb-4 space-y-2; }
+.recipe-output strong { @apply text-orange-900; }
+
+
+/* 
 body {
   font-family: 'Segoe UI', system-ui, sans-serif;
   background: #fdf6e3;
@@ -55,25 +66,25 @@ button:disabled { background: #bdc3c7; cursor: not-allowed; }
   line-height: 1.6;
   border-top: 2px solid #fdf6e3;
   padding-top: 20px;
-}
+} */
 
 /* Mobile-Specific Tweaks */
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   body {
-    padding: 10px; /* Less wasted space on the edges */
+    padding: 10px;
   }
 
   .container {
-    padding: 20px; /* Tighter padding inside the card */
-    border-radius: 10px; /* Slightly sharper corners for a modern mobile look */
+    padding: 20px;
+    border-radius: 10px; 
   }
 
   h1 {
-    font-size: 1.5rem; /* Shrink the title so it doesn't wrap awkwardly */
+    font-size: 1.5rem;
   }
 
   button {
-    padding: 18px; /* Make the button a bigger "tap target" for thumbs */
+    padding: 18px;
     font-size: 18px;
   }
-}
+} */

@@ -60,38 +60,63 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h1>👨‍🍳 Bot Appetit</h1>
-      <p>What's in your fridge? Type it or upload a photo.</p>
-
-      <form onSubmit={handleCook}>
-        <textarea
-          placeholder="e.g. 2 eggs, half an onion, old tortillas..."
-          value={ingredients}
-          onChange={(e) => setIngredients(e.target.value)}
-        />
+    // The main wrapper: Full screen, warm background, centered content
+    <div className="min-h-screen bg-orange-50 text-stone-800 flex justify-center py-10 px-4 font-sans">
+      
+      {/* The White Card */}
+      <div className="max-w-xl w-full bg-white p-8 rounded-2xl shadow-xl border border-orange-100 h-fit">
         
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
-          className="file-input"
-        />
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-extrabold text-orange-600 mb-2">👨‍🍳 Bot Appetit</h1>
+          <p className="text-stone-500 font-medium">What's in your fridge? Type it or upload a photo.</p>
+        </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? 'Sharpening knives... 🔪' : 'Get Recipe'}
-        </button>
-      </form>
+        {/* Form */}
+        <form onSubmit={handleCook} className="flex flex-col gap-5">
+          <textarea
+            placeholder="e.g. 2 eggs, half an onion, old tortillas..."
+            value={ingredients}
+            onChange={(e) => setIngredients(e.target.value)}
+            className="w-full h-28 border-2 border-stone-200 rounded-xl p-4 resize-y focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
+          />
+          
+          <div className="flex items-center gap-4">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files[0])}
+              className="block w-full text-sm text-stone-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer transition"
+            />
+          </div>
 
-      {error && <div className="error-message">{error}</div>}
+          <button 
+            type="submit" 
+            disabled={loading}
+            className="w-full bg-orange-600 hover:bg-orange-500 disabled:bg-stone-300 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] mt-2"
+          >
+            {loading ? 'Sharpening knives... 🔪' : 'Get Recipe'}
+          </button>
+        </form>
 
-      {/* Dangerously Set Inner HTML is safe here because we used DOMPurify */}
-      {recipe && (
-        <div 
-          className="recipe-output" 
-          dangerouslySetInnerHTML={{ __html: recipe }} 
-        />
-      )}
+        {/* Error Message */}
+        {error && (
+          <div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-center font-semibold">
+            {error}
+          </div>
+        )}
+
+        {/* Recipe Output */}
+        {recipe && (
+          <div className="mt-8 pt-8 border-t-2 border-stone-100">
+             <div 
+                className="recipe-output text-stone-700 leading-relaxed" 
+                dangerouslySetInnerHTML={{ __html: recipe }} 
+             />
+          </div>
+        )}
+
+      </div>
     </div>
   );
 }

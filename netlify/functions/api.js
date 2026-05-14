@@ -8,8 +8,26 @@ app.use(express.json({ limit: '10mb' }));
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+// 1. A reusable helper function for retrying API calls
+const generateWithRetry = async (aiConfig, maxRetries = 3) => {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      // Try to make the API call
+      return await ai.models.generateContent(aiConfig);
+    } catch (error) {
+      // Check if it's the specific 503 error AND we still have retries left
+      if (error.status === 503 && i < maxRetries - 1) {
+        console.log(`Server busy. Retrying in 2 seconds... (Attempt ${i + 1})`);
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
+      } else {
+        // If it's a different error, or we ran out of retries, throw it
+        throw error; 
+      }
+    }
+  }
+};
+
 app.post('/api/generate-recipe', async (req, res) => {
-  // We extract the Base64 string directly from the body now!
   const { ingredients, imageBase64, mimeType } = req.body;
 
   try {
@@ -20,22 +38,21 @@ app.post('/api/generate-recipe', async (req, res) => {
 
     if (imageBase64) {
       contentsArray.push({
-        inlineData: {
-          data: imageBase64,
-          mimeType: mimeType
-        }
+        inlineData: { data: imageBase64, mimeType: mimeType }
       });
     }
 
-    const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+    // 2. Use our new retry function instead of calling ai directly!
+    const response = await generateWithRetry({
+        model: 'gemini-3.1-flash-lite',
         contents: contentsArray
     });
 
     res.json({ recipe: response.text });
+    
   } catch (error) {
     console.error("Backend Error:", error);
-    res.status(500).json({ error: "The kitchen is on fire! (API Error)" });
+    res.status(500).json({ error: "The kitchen is super busy right now! Please click get recipe again." });
   }
 });
 
