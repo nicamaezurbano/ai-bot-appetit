@@ -1,16 +1,69 @@
-# React + Vite
+# 👨‍🍳 Bot Appétit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered recipe generator optimized for ingredient-based meal planning. Tell the app what ingredients you have in your fridge (or upload a photo!), and it will instantly generate a creative, step-by-step recipe so you never have to wonder what's for dinner.
 
-Currently, two official plugins are available:
+**[🔴 Live Demo: Bot Appétit on Netlify](https://ai-bot-appetit.netlify.app)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project is built using a modern decoupled architecture and deployed in a serverless environment.
 
-## Expanding the ESLint configuration
+*   **Frontend:** React.js, Vite, Tailwind CSS
+*   **Backend:** Node.js, Express.js
+*   **AI Integration:** Google Gemini API (`@google/genai`)
+*   **Deployment:** Netlify (Netlify Functions for serverless backend)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+*   **Smart Recipe Generation:** Generates customized recipes based on a simple list of ingredients.
+*   **Multimodal Vision Integration:** Upload a photo of your pantry or fridge, and the AI will identify the ingredients automatically.
+*   **Modern UI/UX:** Fully responsive, fluid design built with Tailwind CSS.
+*   **Serverless Backend:** Highly scalable and cost-effective API routing using Netlify Functions.
+
+---
+
+## 💻 How to Run Locally
+
+Because this application relies on Netlify's serverless environment, the best way to run it locally is by using the Netlify CLI. This allows you to spin up both the Vite frontend and the Serverless backend in a single terminal window.
+
+### Prerequisites
+1.  **Node.js** installed on your machine.
+2.  A free **Gemini API Key** from [Google AI Studio](https://aistudio.google.com/).
+3.  The **Netlify CLI** installed globally. If you don't have it, run:
+    ```bash
+    npm install -g netlify-cli
+    ```
+
+### 1. Installation
+
+Clone the repository and install the project dependencies:
+```bash
+git clone <your-repository-url>
+cd bot-appetit
+npm install
+```
+
+
+### 2. Environment Variables
+
+Create a .env file in the root directory of the project and add your Gemini API key:
+```bash
+GEMINI_API_KEY=your_api_key_here
+```
+(Note: Ensure your .env file is listed in your .gitignore so you do not accidentally publish your key to GitHub)
+
+
+### 3. Start the Development Server
+
+Start the local development environment using the Netlify CLI. This command will simultaneously launch your Vite frontend and emulate the serverless backend.
+```bash
+netlify dev
+```
+
+The application will automatically open in your default browser, typically at
+```bash
+http://localhost:8888
+```
+
